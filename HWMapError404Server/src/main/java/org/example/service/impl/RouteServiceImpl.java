@@ -22,7 +22,8 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public Route findById(long id) {
-        if (routeDao.findById(id).isPresent()) return routeDao.findById(id).get();
+        if (routeDao.findById(id).isPresent())
+            return routeDao.findById(id).get();
         return null;
     }
 
@@ -41,8 +42,7 @@ public class RouteServiceImpl implements RouteService {
         Route newRoute = Route.builder()
                 .id(route.getId())
                 .name(route.getName())
-                .routeUsers(route.getRouteUsers())
-                .places(route.getPlaces())
+                .linkPhoto(route.getLinkPhoto())
                 .build();
         return routeDao.save(newRoute);
     }

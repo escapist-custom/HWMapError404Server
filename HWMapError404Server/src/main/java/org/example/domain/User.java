@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -29,9 +30,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(mappedBy = "routeUsers")
-    private List<Route> routes;
-
-    public User(String nickName, String email, String password, List<Route> routes) {
-    }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "link", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "route_id"))
+    private List<Route> favoriteRoutes;
 }

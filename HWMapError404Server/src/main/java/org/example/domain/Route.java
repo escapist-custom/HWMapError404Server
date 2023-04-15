@@ -14,25 +14,16 @@ import java.util.List;
 public class Route {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     private String name;
 
-    public Route(String name, List<User> routeUsers, double[] places) {
-        this.name = name;
-        this.routeUsers = routeUsers;
-        this.places = places;
-    }
+    @Column(name = "link_photo")
+    private String linkPhoto;
 
-    @ManyToMany
-    @JoinTable(name = "users_route",
-        joinColumns = @JoinColumn(name = "route_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private List<User> routeUsers;
-
-    @Column(name = "places")
-    private double[] places;
+    @Column(name = "description")
+    private String description;
 
 }

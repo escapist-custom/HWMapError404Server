@@ -24,12 +24,12 @@ public class UserDto {
 
     private String password;
 
-    private List<RouteDto> routes;
+    private List<RouteDto> favoriteRoutes;
 
     public static UserDto toDto(User user) {
         List<RouteDto> userDtoRoutes;
-        if (user.getRoutes() != null) {
-            userDtoRoutes = user.getRoutes().stream().map(RouteDto::toDto).collect(Collectors.toList());
+        if (user.getFavoriteRoutes() != null) {
+            userDtoRoutes = user.getFavoriteRoutes().stream().map(RouteDto::toDto).collect(Collectors.toList());
         } else {
             userDtoRoutes = new ArrayList<>();
         }

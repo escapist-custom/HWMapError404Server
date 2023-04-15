@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
                 .nickName(user.getNickName())
                 .email(user.getEmail())
                 .password(user.getPassword())
-                .routes(user.getRoutes())
+                .favoriteRoutes(user.getFavoriteRoutes())
                 .build();
         return userDao.save(newUser);
     }

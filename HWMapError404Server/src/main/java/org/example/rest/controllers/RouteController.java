@@ -19,11 +19,15 @@ public class RouteController {
 
     @PostMapping("/route")
     public RouteDto createRoute(
-            @RequestParam String name,
-            @RequestParam List<User> routeUsers,
-            @RequestParam double[] places
+            @RequestParam String description,
+            @RequestParam String nameOfRoute,
+            @RequestParam String linkPhoto
     ) {
-        Route route = routeService.insert(new Route(name, routeUsers, places));
+        Route route = routeService.insert(Route.builder()
+                .description(description)
+                .name(nameOfRoute)
+                .linkPhoto(linkPhoto)
+                .build());
         return RouteDto.toDto(route);
     }
 
@@ -45,12 +49,14 @@ public class RouteController {
     public RouteDto updateRouteById(
             @PathVariable long id,
             @RequestParam String newName,
-            @RequestParam List<User> newRouteUsers,
-            @RequestParam double[] newPlaces
+            @RequestParam String linkPhoto
     ) {
-        Route route = routeService.update(new Route(
-                id, newName, newRouteUsers, newPlaces
-        ));
+        Route route = routeService.update(Route.builder()
+                .id(id)
+                .name(newName)
+                .linkPhoto(linkPhoto)
+                .build()
+        );
 
         return RouteDto.toDto(route);
     }

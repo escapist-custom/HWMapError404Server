@@ -22,7 +22,13 @@ public class UserController {
             @RequestParam String password,
             @RequestParam List<Route> routes
     ) {
-        User user = userService.insert(new User(nickName, email, password, routes));
+        User user = userService.insert(User.builder()
+                .nickName(nickName)
+                .email(email)
+                .password(password)
+                .favoriteRoutes(routes)
+                .build()
+        );
         return UserDto.toDto(user);
     }
 
@@ -53,9 +59,14 @@ public class UserController {
             @RequestParam String password,
             @RequestParam List<Route> routes
     ) {
-        User user = userService.update(new User(
-                id, nickName, email, password, routes
-        ));
+        User user = userService.update(User.builder()
+                        .id(id)
+                        .nickName(nickName)
+                        .email(email)
+                        .password(password)
+                        .favoriteRoutes(routes)
+                .build()
+        );
 
         return UserDto.toDto(user);
     }

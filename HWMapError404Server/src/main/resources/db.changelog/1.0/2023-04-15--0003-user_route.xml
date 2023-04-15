@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="2023-04-15--0003-user_route" author="kpetrovskiy">
+        <preConditions>
+            <not>
+                <tableExists tableName="link"/>
+            </not>
+        </preConditions>
+        <createTable tableName="link">
+            <column name="id"
+                    type="BIGINT"
+                    autoIncrement="true">
+                <constraints nullable="false"
+                             primaryKey="true"/>
+            </column>
+
+            <column name="user_id"
+                    type="BIGINT">
+                <constraints
+                        nullable="false"
+                        primaryKey="true"
+                        primaryKeyName="pk_user_route"
+                        foreignKeyName="fk_user_route_user"
+                        references="users(id)"/>
+            </column>
+
+            <column name="route_id"
+                    type="BIGINT">
+                <constraints
+                        nullable="false"
+                        primaryKey="true"
+                        primaryKeyName="pk_route_user"
+                        foreignKeyName="fk_user_route_route"
+                        references="route(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

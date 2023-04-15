@@ -21,33 +21,23 @@ public class RouteDto {
 
     private long id;
 
-    private String name;
+    private String nameOfRoute;
 
-    private List<UserDto> routeUsers;
-
-    private double[] places;
+    private String linkPhoto;
 
     public static Route FromDtoToRoute(RouteDto routeDto, List<User> userList) {
         return Route.builder()
                 .id(routeDto.getId())
-                .name(routeDto.getName())
-                .routeUsers(userList)
-                .places(routeDto.getPlaces())
+                .name(routeDto.getNameOfRoute())
+                .linkPhoto(routeDto.getLinkPhoto())
                 .build();
     }
 
     public static RouteDto toDto(Route route) {
-        List<UserDto> routeDtoUsers;
-        if (route.getRouteUsers() != null) {
-            routeDtoUsers = route.getRouteUsers().stream().map(UserDto::toDto).collect(Collectors.toList());
-        } else {
-            routeDtoUsers = new ArrayList<>();
-        }
         return new RouteDto(
                 route.getId(),
                 route.getName(),
-                routeDtoUsers,
-                route.getPlaces()
+                route.getLinkPhoto()
         );
     }
 }
