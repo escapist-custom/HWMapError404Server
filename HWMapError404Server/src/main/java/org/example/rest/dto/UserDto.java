@@ -28,8 +28,8 @@ public class UserDto {
 
     public static UserDto toDto(User user) {
         List<RouteDto> userDtoRoutes;
-        if (user.getFavoriteRoutes() != null) {
-            userDtoRoutes = user.getFavoriteRoutes().stream().map(RouteDto::toDto).collect(Collectors.toList());
+        if (user.getRoute() != null) {
+            userDtoRoutes = user.getRoute().stream().map(RouteDto::toDto).collect(Collectors.toList());
         } else {
             userDtoRoutes = new ArrayList<>();
         }

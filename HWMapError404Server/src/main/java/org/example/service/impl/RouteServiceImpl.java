@@ -41,8 +41,11 @@ public class RouteServiceImpl implements RouteService {
     public Route update(Route route) {
         Route newRoute = Route.builder()
                 .id(route.getId())
+                .description(route.getDescription())
                 .name(route.getName())
                 .linkPhoto(route.getLinkPhoto())
+                .km(route.getKm())
+                .time(route.getTime())
                 .build();
         return routeDao.save(newRoute);
     }

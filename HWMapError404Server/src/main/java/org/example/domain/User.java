@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -31,7 +33,7 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "link", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "route_id"))
-    private List<Route> favoriteRoutes;
+    @JoinTable(name = "link", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "route_id", referencedColumnName = "id"))
+    private List<Route> route;
 }

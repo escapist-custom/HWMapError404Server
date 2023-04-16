@@ -1,6 +1,7 @@
 package org.example.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.example.domain.Route;
 import org.example.domain.User;
 import org.example.repository.UserDao;
 import org.example.service.UserService;
@@ -22,7 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(long id) {
-        if (userDao.findById(id).isPresent()) return userDao.findById(id).get();
+        if (userDao.findById(id).isPresent()) {
+            return userDao.findById(id).get();
+        }
         else return null;
     }
 
@@ -43,13 +46,20 @@ public class UserServiceImpl implements UserService {
                 .nickName(user.getNickName())
                 .email(user.getEmail())
                 .password(user.getPassword())
-                .favoriteRoutes(user.getFavoriteRoutes())
+                .route(user.getRoute())
                 .build();
         return userDao.save(newUser);
     }
 
+
+
     @Override
     public void deleteById(long id) {
         userDao.deleteById(id);
+    }
+
+    @Override
+    public List<Route> getFavoriteRoutes(long id) {
+        return userDao.findByRouteId(id);
     }
 }

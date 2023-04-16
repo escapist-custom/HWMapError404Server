@@ -3,10 +3,13 @@ package org.example.rest.controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.domain.Route;
 import org.example.domain.User;
+import org.example.rest.dto.RouteDto;
 import org.example.rest.dto.UserDto;
+import org.example.service.RouteService;
 import org.example.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final RouteService routeService;
 
     @PostMapping("/user")
     public UserDto createNewUser(
@@ -26,7 +30,7 @@ public class UserController {
                 .nickName(nickName)
                 .email(email)
                 .password(password)
-                .favoriteRoutes(routes)
+                .route(routes)
                 .build()
         );
         return UserDto.toDto(user);
@@ -46,11 +50,6 @@ public class UserController {
         return UserDto.toDto(userService.findById(id));
     }
 
-    @GetMapping("/user/email")
-    public UserDto getUserByEmail(@PathVariable String email) {
-        return UserDto.toDto(userService.findByEmail(email));
-    }
-
     @PostMapping("/user/{id}")
     public UserDto updateUserById(
             @PathVariable long id,
@@ -64,11 +63,32 @@ public class UserController {
                         .nickName(nickName)
                         .email(email)
                         .password(password)
-                        .favoriteRoutes(routes)
-                .build()
+                        .route(routes)
+                        .build()
         );
-
         return UserDto.toDto(user);
+    }
+
+    @PatchMapping("add/user/{userId}/route/{routeId}")
+    public User addRoute(@PathVariable long userId, @PathVariable long routeId) {
+        User user = userService.findById(userId);
+        Route route = routeService.findById(routeId);
+        List<Route> routes = user.getRoute();
+        routes.add(route);
+        user.setRoute(routes);
+        userService.update(user);
+        return user;
+    }
+
+    @GetMapping("user/favoriteRoutes/{id}")
+    public List<RouteDto> getFavoriteRoutes(@PathVariable long id) {
+        List<Route> routes = userService.getFavoriteRoutes(id);
+        List<RouteDto> routeDtos = new ArrayList<>();
+        for (Route route: routes) {
+            RouteDto routeDto = RouteDto.toDto(route);
+            routeDtos.add(routeDto);
+        }
+        return routeDtos;
     }
 
     @DeleteMapping("/user/{id}")

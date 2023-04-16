@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.domain.Route;
 import org.example.domain.User;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,6 @@ public interface UserService {
     User update(User user);
 
     void deleteById(long id);
+
+    List<Route> getFavoriteRoutes(long id);
 }

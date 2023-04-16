@@ -24,20 +24,29 @@ public class RouteDto {
     private String nameOfRoute;
 
     private String linkPhoto;
+    private String description;
+    private String km;
+    private String time;
 
     public static Route FromDtoToRoute(RouteDto routeDto, List<User> userList) {
         return Route.builder()
                 .id(routeDto.getId())
                 .name(routeDto.getNameOfRoute())
                 .linkPhoto(routeDto.getLinkPhoto())
+                .description(routeDto.getDescription())
+                .km(routeDto.getKm())
+                .time(routeDto.getTime())
                 .build();
     }
 
     public static RouteDto toDto(Route route) {
-        return new RouteDto(
-                route.getId(),
-                route.getName(),
-                route.getLinkPhoto()
-        );
+        return RouteDto.builder()
+                .id(route.getId())
+                .nameOfRoute(route.getName())
+                .linkPhoto(route.getLinkPhoto())
+                .description(route.getDescription())
+                .km(route.getKm())
+                .time(route.getTime())
+                .build();
     }
 }

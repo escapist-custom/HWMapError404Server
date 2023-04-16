@@ -21,11 +21,6 @@
                              primaryKey="true"/>
             </column>
 
-            <column name="link_photo"
-                    type="VARCHAR(1000)">
-                <constraints nullable="false"/>
-            </column>
-
             <column name="name"
                     type="VARCHAR(100)">
                 <constraints nullable="false"/>
@@ -35,6 +30,22 @@
                     type="VARCHAR(1000)">
                 <constraints nullable="false"/>
             </column>
+
+            <column name="link_photo"
+                    type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="kilometrs"
+                    type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="time"
+                    type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+
         </createTable>
     </changeSet>
 </databaseChangeLog>

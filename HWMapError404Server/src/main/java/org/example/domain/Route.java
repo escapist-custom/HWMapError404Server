@@ -26,4 +26,10 @@ public class Route {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "kilometrs")
+    private String km;
+
+    @Column(name = "time")
+    private String time;
+
 }
